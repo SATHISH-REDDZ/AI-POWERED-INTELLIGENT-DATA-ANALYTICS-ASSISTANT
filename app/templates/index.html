@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Intelligent Data Analytics Assistant</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Glassmorphism CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <!-- Navbar Header -->
+    <header class="navbar">
+        <div class="brand">
+            <div class="brand-icon">⚡</div>
+            <div class="brand-title">
+                <h1>AI Data Analytics Assistant</h1>
+                <p>Automated Dataset Preprocessing, EDA, Visualizations & ML Predictions</p>
+            </div>
+        </div>
+        <div class="dataset-badge">
+            <div class="pulse-dot"></div>
+            <span>Dataset: Titanic-Dataset.csv</span>
+        </div>
+    </header>
+
+    <!-- Quick Metrics Summary Cards Bar -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon blue">📊</div>
+            <div class="stat-info">
+                <h3 id="stat-rows">891</h3>
+                <p>Total Dataset Rows</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon purple">📋</div>
+            <div class="stat-info">
+                <h3 id="stat-cols">12</h3>
+                <p>Total Attributes/Cols</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon amber">❓</div>
+            <div class="stat-info">
+                <h3 id="stat-missing">866</h3>
+                <p>Missing Data Cells</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon emerald">🤖</div>
+            <div class="stat-info">
+                <h3 id="stat-accuracy">72.07%</h3>
+                <p>Random Forest Accuracy</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Tabs Header -->
+    <nav class="tabs-header">
+        <button class="tab-btn active" data-tab="overview-tab">📁 Dataset Inspector</button>
+        <button class="tab-btn" data-tab="preprocessing-tab">🧹 Data Cleaning</button>
+        <button class="tab-btn" data-tab="eda-tab">📈 Exploratory Analysis</button>
+        <button class="tab-btn" data-tab="visuals-tab">🖼️ Visual Gallery</button>
+        <button class="tab-btn" data-tab="ml-tab">⚙️ ML Model Studio</button>
+        <button class="tab-btn" data-tab="predict-tab">🔮 Live Predictor</button>
+        <button class="tab-btn" data-tab="chat-tab">💬 AI Natural Assistant</button>
+        <button class="tab-btn" data-tab="database-tab">🗄️ Database Logs</button>
+        <button class="tab-btn" data-tab="report-tab">📄 Executive Report</button>
+    </nav>
+
+    <!-- TAB 1: OVERVIEW & DATASET INSPECTOR -->
+    <div class="tab-content active" id="overview-tab">
+        <div class="glass-card">
+            <h2 class="card-title">📤 Upload & Inspect Custom CSV Dataset</h2>
+            <div class="upload-zone" onclick="document.getElementById('file-input').click()">
+                <div class="upload-icon">☁️</div>
+                <h3>Drag & Drop CSV Dataset or Click to Browse</h3>
+                <p style="color:var(--text-muted); font-size:0.85rem; margin-top:4px;">Supports structured CSV data files up to 16MB</p>
+                <input type="file" id="file-input" accept=".csv" style="display:none;">
+            </div>
+            <div style="margin-top:16px; display:flex; align-items:center; gap:16px;">
+                <button class="btn" id="upload-btn">🚀 Process & Load Dataset</button>
+                <span id="upload-status"></span>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="card-title">🔍 Dataset First 10 Records Preview</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead id="dataset-table-head">
+                        <!-- Populated dynamically -->
+                    </thead>
+                    <tbody id="dataset-table-body">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: PREPROCESSING & DATA CLEANING -->
+    <div class="tab-content" id="preprocessing-tab">
+        <div class="glass-card">
+            <h2 class="card-title">🛠️ Data Cleaning & Feature Preprocessing Studio</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="missing-strategy">Missing Value Imputation Strategy</label>
+                    <select id="missing-strategy">
+                        <option value="mean">Replace Numerical with Mean & Mode for Categorical</option>
+                        <option value="median">Replace Numerical with Median</option>
+                        <option value="mode">Replace All with Most Frequent Mode</option>
+                        <option value="drop_rows">Drop Rows Containing Missing Values</option>
+                    </select>
+                </div>
+                <div class="form-group" style="display:flex; align-items:center; gap:10px; margin-top:24px;">
+                    <input type="checkbox" id="remove-duplicates" checked>
+                    <label for="remove-duplicates">Automatically Remove Duplicate Rows</label>
+                </div>
+                <div class="form-group" style="display:flex; align-items:center; gap:10px; margin-top:24px;">
+                    <input type="checkbox" id="encode-categorical" checked>
+                    <label for="encode-categorical">Encode Categorical Features (Sex, Embarked)</label>
+                </div>
+            </div>
+            <button class="btn" id="run-cleaning-btn">✨ Apply Preprocessing & Update Dataset</button>
+            <div id="cleaning-status" style="margin-top:16px;"></div>
+        </div>
+    </div>
+
+    <!-- TAB 3: EXPLORATORY DATA ANALYSIS -->
+    <div class="tab-content" id="eda-tab">
+        <div class="glass-card">
+            <h2 class="card-title">💡 Intelligent Data Insights & Patterns</h2>
+            <div id="eda-insights-box" style="background:rgba(0,0,0,0.25); border:1px solid var(--border-color); padding:18px; border-radius:var(--radius-sm); white-space:pre-wrap; color:var(--text-main); line-height:1.8;">
+                Loading automated insights...
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="card-title">📊 Descriptive Statistical Summary</h2>
+            <div id="eda-stats-container">
+                <p>Loading statistical metrics...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: VISUAL GALLERY -->
+    <div class="tab-content" id="visuals-tab">
+        <div class="glass-card">
+            <h2 class="card-title">🖼️ Automated Visualization Gallery</h2>
+            <div class="charts-grid" id="visuals-gallery">
+                <p>Click tab to generate visual charts...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 5: MACHINE LEARNING STUDIO -->
+    <div class="tab-content" id="ml-tab">
+        <div class="glass-card">
+            <h2 class="card-title">⚙️ Machine Learning Algorithm Studio</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="ml-algo-select">Select Classification Algorithm</label>
+                    <select id="ml-algo-select">
+                        <option value="RandomForestClassifier" selected>Random Forest Classifier (Ensemble)</option>
+                        <option value="GradientBoostingClassifier">Gradient Boosting Classifier</option>
+                        <option value="DecisionTreeClassifier">Decision Tree Classifier</option>
+                        <option value="LogisticRegression">Logistic Regression</option>
+                        <option value="KNeighborsClassifier">K-Nearest Neighbors (KNN)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="test-size-input">Train / Test Split Ratio</label>
+                    <select id="test-size-input">
+                        <option value="0.2" selected>80% Train / 20% Test</option>
+                        <option value="0.25">75% Train / 25% Test</option>
+                        <option value="0.3">70% Train / 30% Test</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn" id="train-model-btn">🎯 Train & Evaluate Model</button>
+            <div id="ml-results-box" style="margin-top:20px;"></div>
+        </div>
+    </div>
+
+    <!-- TAB 6: LIVE PASSENGER PREDICTOR -->
+    <div class="tab-content" id="predict-tab">
+        <div class="glass-card">
+            <h2 class="card-title">🔮 Interactive Single Sample Prediction Engine</h2>
+            <p style="color:var(--text-muted); margin-bottom:20px;">Enter passenger feature values to predict survival probability using the trained machine learning model:</p>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="pred-pclass">Passenger Class (Pclass)</label>
+                    <select id="pred-pclass">
+                        <option value="1">1st Class (Upper)</option>
+                        <option value="2">2nd Class (Middle)</option>
+                        <option value="3" selected>3rd Class (Lower)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pred-sex">Sex / Gender</label>
+                    <select id="pred-sex">
+                        <option value="female">Female</option>
+                        <option value="male" selected>Male</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pred-age">Age (Years)</label>
+                    <input type="number" id="pred-age" value="29.0" step="0.5">
+                </div>
+                <div class="form-group">
+                    <label for="pred-sibsp">Siblings / Spouses Aboard (SibSp)</label>
+                    <input type="number" id="pred-sibsp" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="pred-parch">Parents / Children Aboard (Parch)</label>
+                    <input type="number" id="pred-parch" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="pred-fare">Ticket Fare ($)</label>
+                    <input type="number" id="pred-fare" value="32.2" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label for="pred-embarked">Port of Embarkation</label>
+                    <select id="pred-embarked">
+                        <option value="S" selected>Southampton (S)</option>
+                        <option value="C">Cherbourg (C)</option>
+                        <option value="Q">Queenstown (Q)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn" id="predict-btn">⚡ Predict Outcome</button>
+
+            <div id="prediction-output" style="margin-top:24px;"></div>
+        </div>
+    </div>
+
+    <!-- TAB 7: AI NATURAL ASSISTANT CHAT -->
+    <div class="tab-content" id="chat-tab">
+        <div class="glass-card">
+            <h2 class="card-title">💬 AI Natural Language Analytics Assistant</h2>
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="chat-bubble ai">
+Hello! I am your AI Data Analytics Assistant. Ask me anything about your active dataset, request summary statistics, train ML models, or generate insights!
+                    </div>
+                </div>
+                <div class="chat-input-bar">
+                    <input type="text" id="chat-input" placeholder="Ask a question (e.g. 'Show summary', 'What are the top features?', 'Train model')...">
+                    <button class="btn" id="chat-send-btn">Send</button>
+                </div>
+            </div>
+
+            <div class="chip-container">
+                <span class="chip">Show dataset summary</span>
+                <span class="chip">List all columns</span>
+                <span class="chip">Generate insights</span>
+                <span class="chip">Train random forest model</span>
+                <span class="chip">Check missing values</span>
+                <span class="chip">Generate visual charts</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 8: DATABASE LOGS -->
+    <div class="tab-content" id="database-tab">
+        <div class="glass-card">
+            <h2 class="card-title">🗄️ SQLite Database Model Execution Audit Logs</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Run ID</th>
+                            <th>Algorithm</th>
+                            <th>Accuracy</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="db-runs-body">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="card-title">🔮 Prediction Audit Logs</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pred ID</th>
+                            <th>Prediction Label</th>
+                            <th>Confidence Score</th>
+                            <th>Input Features</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="db-preds-body">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 9: EXECUTIVE REPORT -->
+    <div class="tab-content" id="report-tab">
+        <div class="glass-card">
+            <h2 class="card-title">📄 Automated Executive Data Analytics Report</h2>
+            <pre id="executive-report-text" style="background:rgba(0,0,0,0.3); border:1px solid var(--border-color); padding:20px; border-radius:var(--radius-sm); color:var(--text-main); font-family:monospace; white-space:pre-wrap; overflow-x:auto;">
+Loading automated executive report...
+            </pre>
+        </div>
+    </div>
+</div>
+
+<!-- Frontend Script -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
