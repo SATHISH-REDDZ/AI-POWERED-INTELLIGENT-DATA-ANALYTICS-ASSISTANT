@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>AI Data Analytics Assistant</title>
+    <head>
+
+    <title>AI-Powered Intelligent Data Analytics Assistant</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+</head>
+
+<body>
+
+    <h1>AI-Powered Intelligent Data Analytics Assistant</h1>
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="question"
+            placeholder="Ask something">
+
+        <button type="submit">
+            Submit
+        </button>
+
+    </form>
+
+    <h3>Response:</h3>
+
+    <pre>{{ response }}</pre>
+
+    {% if charts %}
+
+    <h2>Generated Charts</h2>
+
+    <img src="{{ url_for('static', filename='charts/survival_chart.png') }}"
+         width="500">
+
+    <br><br>
+
+    <img src="{{ url_for('static', filename='charts/gender_chart.png') }}"
+         width="500">
+
+    <br><br>
+
+    <img src="{{ url_for('static', filename='charts/age_histogram.png') }}"
+         width="500">
+
+    <br><br>
+
+    <img src="{{ url_for('static', filename='charts/correlation_heatmap.png') }}"
+         width="500">
+
+    {% endif %}
+
+</body>
+
+</html>
