@@ -8,6 +8,27 @@
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---
+## 🔗 Important Links
+
+### 👤 Profile & Project Repository
+* **GitHub Profile**: [SATHISH-REDDZ](https://github.com/SATHISH-REDDZ)
+* **Project Repository**: [AI-Powered Intelligent Data Analytics Assistant](https://github.com/SATHISH-REDDZ/AI-Powered-Intelligent-Data-Analytics-Assistant)
+
+### 🛠️ Official Documentation & Technologies
+* **Python**: [https://www.python.org/](https://www.python.org/)
+* **Flask Framework**: [https://flask.palletsprojects.com/](https://flask.palletsprojects.com/)
+* **Pandas Library**: [https://pandas.pydata.org/](https://pandas.pydata.org/)
+* **Scikit-Learn**: [https://scikit-learn.org/](https://scikit-learn.org/)
+* **SQLite Database**: [https://www.sqlite.org/](https://www.sqlite.org/)
+
+### 🎨 Libraries & CDNs
+* **Chart.js**: [https://cdn.jsdelivr.net/npm/chart.js](https://cdn.jsdelivr.net/npm/chart.js)
+* **Google Fonts**: [https://fonts.googleapis.com](https://fonts.googleapis.com)
+
+### 🖥️ Local Web Application URL
+* **Flask Local Server**: `http://127.0.0.1:5000` *(Active when running `python run.py` or `start_app.bat`)*
+
+---
 
 ## 📌 Table of Contents
 
