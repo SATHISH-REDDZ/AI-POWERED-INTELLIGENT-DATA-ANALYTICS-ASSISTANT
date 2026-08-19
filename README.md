@@ -10,7 +10,7 @@
 ---
 
 ### 🖥️ Local Web Application URL
-* **Flask Local Server**: `http://127.0.0.1:5000` *(Active when running `python run.py` or `start_app.bat`)*
+* **Flask Local Server**: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ---
 
