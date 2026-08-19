@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, render_template, request, jsonify, send_file, current_app
+from flask import Blueprint, render_template, request, jsonify, send_file, redirect, url_for
 from werkzeug.utils import secure_filename
 from config import Config
 from app.analysis import get_dataset_info, get_descriptive_stats, dataset_insights, generate_report
@@ -32,6 +32,25 @@ def home():
 
     return render_template('index.html', response=response, charts=charts_generated)
 
+@api_bp.route('/dashboard')
+def dashboard_view():
+    return render_template('dashboard.html')
+
+@api_bp.route('/upload_view')
+@api_bp.route('/upload')
+def upload_view():
+    return render_template('upload.html')
+
+@api_bp.route('/results')
+def results_view():
+    return render_template('results.html')
+
+@api_bp.route('/login')
+@api_bp.route('/register')
+@api_bp.route('/settings')
+def convenience_routes():
+    return redirect(url_for('api.home'))
+
 @api_bp.route('/api/upload', methods=['POST'])
 def upload_dataset():
     if 'file' not in request.files:
@@ -47,7 +66,6 @@ def upload_dataset():
         upload_path = os.path.join(Config.UPLOADS_DIR, filename)
         file.save(upload_path)
 
-        # Overwrite default active dataset
         os.makedirs(Config.DATA_DIR, exist_ok=True)
         file.seek(0)
         file.save(Config.DEFAULT_DATASET)
